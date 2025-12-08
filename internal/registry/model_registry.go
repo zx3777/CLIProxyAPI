@@ -99,10 +99,7 @@ var globalRegistry *ModelRegistry
 var registryOnce sync.Once
 
 // GetGlobalRegistry returns the global model registry instance
-func GetGlobalRegistry() *ModelRegistry {
-	registryOnce.Do(func() {
-		globalRegistry = &ModelRegistry{
-			// GetGlobalRegistry returns the global model registry instance
+
 func GetGlobalRegistry() *ModelRegistry {
 	registryOnce.Do(func() {
 		globalRegistry = &ModelRegistry{

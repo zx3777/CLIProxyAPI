@@ -147,13 +147,11 @@ func (s *RoundRobinSelector) Pick(ctx context.Context, provider, model string, o
 		sort.Slice(available, func(i, j int) bool { return available[i].ID < available[j].ID })
 	}
 
-	// --- 新增逻辑开始 ---
     currentStrategy, _ := s.strategy.Load().(string)
     if currentStrategy == "sequential" {
         return available[0], nil
     }
-    // --- 新增逻辑结束 ---
-	
+
 	key := provider + ":" + model
 	s.mu.Lock()
 	index := s.cursors[key]

@@ -115,10 +115,6 @@ func GetGlobalRegistry() *ModelRegistry {
 	})
 	return globalRegistry
 }
-		}
-	})
-	return globalRegistry
-}
 
 // RegisterClient registers a client and its supported models
 // Parameters:

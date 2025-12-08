@@ -23,12 +23,11 @@ type Config struct {
 	// Port is the network port on which the API server will listen.
 	Port int `yaml:"port" json:"-"`
 
-	// --- 新增以下两行 ---
-    // RoutingStrategy 定义路由策略: "round-robin" (默认) 或 "sequential"
-    RoutingStrategy string `yaml:"routing-strategy"`
+    // RoutingStrategy defines the routing strategy: "round-robin" (default) or "sequential"
+RoutingStrategy string `yaml:"routing-strategy"`
 
-    // ProviderPriorities 定义 Provider 的优先级 (数值越大优先级越高)
-    ProviderPriorities map[string]int `yaml:"provider-priorities"`
+	// ProviderPriorities defines the priority of providers (higher value means higher priority)
+ProviderPriorities map[string]int `yaml:"provider-priorities"`
 
 	// TLS config controls HTTPS server settings.
 	TLS TLSConfig `yaml:"tls" json:"tls"`

@@ -99,7 +99,6 @@ var globalRegistry *ModelRegistry
 var registryOnce sync.Once
 
 // GetGlobalRegistry returns the global model registry instance
-
 func GetGlobalRegistry() *ModelRegistry {
 	registryOnce.Do(func() {
 		globalRegistry = &ModelRegistry{
@@ -702,19 +701,19 @@ func (r *ModelRegistry) GetModelProviders(modelID string) []string {
 	}
 
 	sort.Slice(providers, func(i, j int) bool {
-		// 1. 优先按配置的优先级降序排序 (数值越大越优先)
+		// 1. Sort by configured priority in descending order (higher value has higher priority)
 		p1 := getPriority(providers[i].name)
 		p2 := getPriority(providers[j].name)
 		if p1 != p2 {
 			return p1 > p2
 		}
 
-		// 2. 优先级相同，按可用账号数量降序排序 (原有逻辑)
+		// 2. If priority is the same, sort by available account count in descending order (original logic)
 		if providers[i].count != providers[j].count {
 			return providers[i].count > providers[j].count
 		}
 
-		// 3. 最后按名称字母序升序排序 (保证确定性)
+		// 3. Finally, sort by name in alphabetical ascending order (to ensure determinism)
 		return providers[i].name < providers[j].name
 	})
 

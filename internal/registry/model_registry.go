@@ -92,6 +92,7 @@ type ModelRegistry struct {
 	clientProviders map[string]string
 	// mutex ensures thread-safe access to the registry
 	mutex *sync.RWMutex
+	priorities map[string]int
 }
 
 // Global model registry instance

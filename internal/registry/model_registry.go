@@ -16,7 +16,6 @@ import (
 
 // ModelInfo represents information about an available model
 type ModelInfo struct {
-	priorities map[string]int
 	// ID is the unique identifier for the model
 	ID string `json:"id"`
 	// Object type for the model (typically "model")
@@ -103,11 +102,19 @@ var registryOnce sync.Once
 func GetGlobalRegistry() *ModelRegistry {
 	registryOnce.Do(func() {
 		globalRegistry = &ModelRegistry{
+			// GetGlobalRegistry returns the global model registry instance
+func GetGlobalRegistry() *ModelRegistry {
+	registryOnce.Do(func() {
+		globalRegistry = &ModelRegistry{
 			models:          make(map[string]*ModelRegistration),
 			clientModels:    make(map[string][]string),
 			clientProviders: make(map[string]string),
-			priorities:      make(map[string]int),
 			mutex:           &sync.RWMutex{},
+			priorities:      make(map[string]int),
+		}
+	})
+	return globalRegistry
+}
 		}
 	})
 	return globalRegistry
@@ -693,8 +700,6 @@ func (r *ModelRegistry) GetModelProviders(modelID string) []string {
 	if len(providers) == 0 {
 		return nil
 	}
-
-	
 
 	getPriority := func(name string) int {
 		if r.priorities == nil {
